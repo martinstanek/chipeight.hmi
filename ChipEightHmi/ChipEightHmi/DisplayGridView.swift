@@ -14,9 +14,7 @@ struct DisplayGridView: View
         {
             ZStack
             {
-                display
-                    .backgroundColor
-                    .ignoresSafeArea()
+                display.backgroundColor.ignoresSafeArea()
                 
                 VStack(spacing: pixelSpacing)
                 {

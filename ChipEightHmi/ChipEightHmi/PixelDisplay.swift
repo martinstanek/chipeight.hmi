@@ -5,7 +5,7 @@ public import Combine
 public class PixelDisplay: NSObject, ObservableObject
 {
     @Published var pixels: [[Bool]] = Array(repeating: Array(repeating: false, count: DisplayConfig.width), count: DisplayConfig.height)
-    @Published var foregroundColor: Color = .white
+    @Published var foregroundColor: Color = .red
     @Published var backgroundColor: Color = .black
     
     private let pixelsLock = NSLock()
