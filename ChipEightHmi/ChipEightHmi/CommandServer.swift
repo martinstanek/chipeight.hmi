@@ -9,6 +9,7 @@ public final class CommandServer
         await server.appendRoute("/clear", to: ClearDisplayHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/light", to: LightDisplayHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/set/:x/:y/:on", to: SetPixelHandler(pixelDisplay: pixelDisplay))
+        await server.appendRoute("/sprite/:x/:y/:sprites", to: DrawSpriteHandler(pixelDisplay: pixelDisplay))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -88,7 +89,7 @@ internal final class DrawSpriteHandler : HTTPHandler
     {
         let x = Int(request.routeParameters["x"] ?? "0") ?? 0
         let y = Int(request.routeParameters["y"] ?? "0") ?? 0
-        let sprite = request.routeParameters["sprite"] ?? ""
+        let sprite = request.routeParameters["sprites"] ?? ""
         let spriteBytes = await Essentials.hexStringToBytes(string: sprite)
         
         await display.drawSprite(x: x, y: y, sprites: spriteBytes)
