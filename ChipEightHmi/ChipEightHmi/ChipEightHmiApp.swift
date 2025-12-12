@@ -12,6 +12,11 @@ struct ChipEightHmiApp: App
             ContentView()
                 .environmentObject(display)
                 .frame(minWidth: 840, maxWidth: 840, minHeight: 435, maxHeight: 435)
+//                .navigationTitle("Chip8 HMI")
+                .onAppear
+                {
+                    NSApplication.shared.mainWindow?.title = "Your Title"
+                }
         }
         .windowResizability(.contentSize)
         .commands
