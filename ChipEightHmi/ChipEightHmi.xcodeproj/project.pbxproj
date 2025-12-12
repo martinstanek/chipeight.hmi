@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		F3A7F1192EEC134400569358 /* ChipEightHmi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChipEightHmi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F3A7F1192EEC134400569358 /* Chip8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chip8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -40,7 +40,7 @@
 		F3A7F11A2EEC134400569358 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F3A7F1192EEC134400569358 /* ChipEightHmi.app */,
+				F3A7F1192EEC134400569358 /* Chip8.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,9 +48,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F3A7F1182EEC134400569358 /* ChipEightHmi */ = {
+		F3A7F1182EEC134400569358 /* Chip8 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3A7F1242EEC134500569358 /* Build configuration list for PBXNativeTarget "ChipEightHmi" */;
+			buildConfigurationList = F3A7F1242EEC134500569358 /* Build configuration list for PBXNativeTarget "Chip8" */;
 			buildPhases = (
 				F3A7F1152EEC134400569358 /* Sources */,
 				F3A7F1162EEC134400569358 /* Frameworks */,
@@ -63,11 +63,11 @@
 			fileSystemSynchronizedGroups = (
 				F3A7F11B2EEC134400569358 /* ChipEightHmi */,
 			);
-			name = ChipEightHmi;
+			name = Chip8;
 			packageProductDependencies = (
 			);
 			productName = ChipEightHmi;
-			productReference = F3A7F1192EEC134400569358 /* ChipEightHmi.app */;
+			productReference = F3A7F1192EEC134400569358 /* Chip8.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -99,7 +99,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F3A7F1182EEC134400569358 /* ChipEightHmi */,
+				F3A7F1182EEC134400569358 /* Chip8 */,
 			);
 		};
 /* End PBXProject section */
@@ -250,6 +250,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -259,7 +260,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Test;
+				INFOPLIST_KEY_CFBundleDisplayName = Chip8;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -285,6 +286,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -294,7 +296,7 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Test;
+				INFOPLIST_KEY_CFBundleDisplayName = Chip8;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -327,7 +329,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F3A7F1242EEC134500569358 /* Build configuration list for PBXNativeTarget "ChipEightHmi" */ = {
+		F3A7F1242EEC134500569358 /* Build configuration list for PBXNativeTarget "Chip8" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F3A7F1252EEC134500569358 /* Debug */,
