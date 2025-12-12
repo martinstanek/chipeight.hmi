@@ -3,11 +3,10 @@ import FlyingFox
 public final class CommandServer
 {
     private let server = HTTPServer(port: 8090)
-    private let helloHandler = ClearDisplayHandler();
     
-    public func start() async throws
+    public func start(pixelDisplay: PixelDisplay) async throws
     {
-        await server.appendRoute("/hello", to: helloHandler)
+        await server.appendRoute("/clear", to: ClearDisplayHandler(pixelDisplay: pixelDisplay))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -17,13 +16,25 @@ public final class CommandServer
     {
         await server.stop(timeout: 3)
     }
+
 }
 
 internal final class ClearDisplayHandler : HTTPHandler
 {
+    var display: PixelDisplay?
+    
+    init(pixelDisplay: PixelDisplay)
+    {
+        display = pixelDisplay
+    }
+    
     public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
     {
-        print("hello")
+        if (display != nil)
+        {
+            await display?.clearDisplay()
+        }
+        
         return HTTPResponse(statusCode: .ok)
     }
 }
