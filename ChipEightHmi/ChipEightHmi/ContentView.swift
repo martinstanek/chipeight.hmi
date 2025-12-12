@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View
 {
-    @StateObject private var display = PixelDisplay()
+    @EnvironmentObject private var display: PixelDisplay
     
     var body: some View
     {

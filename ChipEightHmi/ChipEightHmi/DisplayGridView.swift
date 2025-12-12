@@ -20,11 +20,11 @@ struct DisplayGridView: View
                 
                 VStack(spacing: pixelSpacing)
                 {
-                    ForEach(0..<32, id: \.self)
+                    ForEach (0..<DisplayConfig.height, id: \.self)
                     { y in
                         HStack(spacing: pixelSpacing)
                         {
-                            ForEach(0..<64, id: \.self)
+                            ForEach(0..<DisplayConfig.width, id: \.self)
                             { x in
                                 RoundedRectangle(cornerRadius: 2)
                                     .fill(display.pixels[y][x] ? display.foregroundColor : display.backgroundColor)
