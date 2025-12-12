@@ -1,24 +1,20 @@
-//
-//  ContentView.swift
-//  ChipEightHmi
-//
-//  Created by Martin Stanek on 12.12.2025.
-//
-
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+struct ContentView: View
+{
+    @StateObject private var display = PixelDisplay()
+    
+    var body: some View
+    {
+        VStack(spacing: 0)
+        {
+            DisplayGridView(display: display)
         }
-        .padding()
+        .backgroundStyle(.background)
     }
 }
 
-#Preview {
+#Preview
+{
     ContentView()
 }
