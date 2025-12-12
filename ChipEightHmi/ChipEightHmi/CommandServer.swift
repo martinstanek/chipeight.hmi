@@ -7,6 +7,8 @@ public final class CommandServer
     public func start(pixelDisplay: PixelDisplay) async throws
     {
         await server.appendRoute("/clear", to: ClearDisplayHandler(pixelDisplay: pixelDisplay))
+        await server.appendRoute("/light", to: LightDisplayHandler(pixelDisplay: pixelDisplay))
+        await server.appendRoute("/set/:x/:y/:on", to: SetPixelHandler(pixelDisplay: pixelDisplay))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -31,6 +33,44 @@ internal final class ClearDisplayHandler : HTTPHandler
     public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
     {
         await display.clearDisplay()
+        
+        return HTTPResponse(statusCode: .ok)
+    }
+}
+
+internal final class LightDisplayHandler : HTTPHandler
+{
+    private let display: PixelDisplay
+    
+    init(pixelDisplay: PixelDisplay)
+    {
+        display = pixelDisplay
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        await display.ligthDisplay()
+        
+        return HTTPResponse(statusCode: .ok)
+    }
+}
+
+internal final class SetPixelHandler : HTTPHandler
+{
+    private let display: PixelDisplay
+    
+    init(pixelDisplay: PixelDisplay)
+    {
+        display = pixelDisplay
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        let x = Int(request.routeParameters["x"] ?? "0") ?? 0
+        let y = Int(request.routeParameters["y"] ?? "0") ?? 0
+        let on = Bool(request.routeParameters["on"] ?? "false") ?? false
+        
+        await display.setPixel(x: x, y: y, state: on)
         
         return HTTPResponse(statusCode: .ok)
     }
