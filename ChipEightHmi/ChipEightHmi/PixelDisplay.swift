@@ -10,14 +10,28 @@ class PixelDisplay: NSObject, ObservableObject
     
     private let pixelsLock = NSLock()
     
-    func clearDisplay()
+    public func clearDisplay()
+    {
+        setAllDisplay(state: false)
+    }
+    
+    public func ligthDisplay()
+    {
+        setAllDisplay(state: true)
+    }
+    
+    private func setAllDisplay(state: Bool)
     {
         pixelsLock.lock()
-        defer { pixelsLock.unlock() }
+        
+        defer
+        {
+            pixelsLock.unlock()
+        }
         
         DispatchQueue.main.async
         {
-            self.pixels = Array(repeating: Array(repeating: false, count: 64), count: 32)
+            self.pixels = Array(repeating: Array(repeating: state, count: 64), count: 32)
         }
     }
 }
