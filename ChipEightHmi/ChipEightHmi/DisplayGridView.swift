@@ -10,7 +10,7 @@ struct DisplayGridView: View
     
     var body: some View
     {
-        VStack(spacing: 4)
+        VStack(spacing: 0)
         {
             ZStack
             {
@@ -36,7 +36,7 @@ struct DisplayGridView: View
                 }
                 .padding(8)
             }
-            .frame(height: 400)
+            .frame(height: 430)
             .cornerRadius(8)
             .shadow(radius: 4)
         }

@@ -11,7 +11,9 @@ struct ChipEightHmiApp: App
         {
             ContentView()
                 .environmentObject(display)
+                .frame(minWidth: 840, maxWidth: 840, minHeight: 435, maxHeight: 435)
         }
+        .windowResizability(.contentSize)
         .commands
         {
             CommandMenu("Display")
