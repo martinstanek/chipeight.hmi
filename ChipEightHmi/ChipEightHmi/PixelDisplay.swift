@@ -2,9 +2,9 @@ import Foundation
 import SwiftUI
 public import Combine
 
-public class PixelDisplay: NSObject, ObservableObject
+public final class PixelDisplay: NSObject, ObservableObject
 {
-    @Published var pixels: [[Bool]] = Array(repeating: Array(repeating: false, count: DisplayConfig.width), count: DisplayConfig.height)
+    @Published var pixels: [[Bool]] = Array(repeating: Array(repeating: false,count: DisplayConfig.width),count: DisplayConfig.height)
     @Published var foregroundColor: Color = .red
     @Published var backgroundColor: Color = .black
     

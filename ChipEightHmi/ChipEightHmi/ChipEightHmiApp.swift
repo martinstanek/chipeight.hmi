@@ -4,6 +4,7 @@ import SwiftUI
 struct ChipEightHmiApp: App
 {
     @StateObject private var display = PixelDisplay()
+    let commandServer = CommandServer();
     
     var body: some Scene
     {
@@ -12,6 +13,14 @@ struct ChipEightHmiApp: App
             ContentView()
                 .environmentObject(display)
                 .frame(minWidth: 840, maxWidth: 840, minHeight: 435, maxHeight: 435)
+                .onAppear
+                {
+                    tryStartServer()
+                }
+                .onDisappear
+                {
+                    tryStopServer()
+                }
         }
         .windowResizability(.contentSize)
         .commands
@@ -35,6 +44,37 @@ struct ChipEightHmiApp: App
                     display.calibrate()
                 }
                 .keyboardShortcut("b", modifiers: .command)
+            }
+        }
+    }
+    
+    private func tryStartServer()
+    {
+        Task
+        {
+            do
+            {
+                try await commandServer.start()
+            }
+            catch let error
+            {
+                print(error)
+            }
+            
+        }
+    }
+    
+    private func tryStopServer()
+    {
+        Task
+        {
+            do
+            {
+                try await commandServer.stop();
+            }
+            catch let error
+            {
+                print(error)
             }
         }
     }

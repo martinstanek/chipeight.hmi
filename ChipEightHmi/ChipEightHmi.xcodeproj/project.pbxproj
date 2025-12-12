@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F3109D8D2EEC53BD00040DCE /* FlyingFox in Frameworks */ = {isa = PBXBuildFile; productRef = F3109D8C2EEC53BD00040DCE /* FlyingFox */; };
+		F3109D8F2EEC53BD00040DCE /* FlyingSocks in Frameworks */ = {isa = PBXBuildFile; productRef = F3109D8E2EEC53BD00040DCE /* FlyingSocks */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F3A7F1192EEC134400569358 /* Chip8.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chip8.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +28,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3109D8D2EEC53BD00040DCE /* FlyingFox in Frameworks */,
+				F3109D8F2EEC53BD00040DCE /* FlyingSocks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +72,8 @@
 			);
 			name = Chip8;
 			packageProductDependencies = (
+				F3109D8C2EEC53BD00040DCE /* FlyingFox */,
+				F3109D8E2EEC53BD00040DCE /* FlyingSocks */,
 			);
 			productName = ChipEightHmi;
 			productReference = F3A7F1192EEC134400569358 /* Chip8.app */;
@@ -94,6 +103,9 @@
 			);
 			mainGroup = F3A7F1102EEC134400569358;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F3A7F11A2EEC134400569358 /* Products */;
 			projectDirPath = "";
@@ -257,7 +269,17 @@
 				DEVELOPMENT_TEAM = R945G5SAY3;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Chip8;
@@ -293,7 +315,17 @@
 				DEVELOPMENT_TEAM = R945G5SAY3;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = YES;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = Chip8;
@@ -339,6 +371,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/swhitty/FlyingFox.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.26.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F3109D8C2EEC53BD00040DCE /* FlyingFox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */;
+			productName = FlyingFox;
+		};
+		F3109D8E2EEC53BD00040DCE /* FlyingSocks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */;
+			productName = FlyingSocks;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F3A7F1112EEC134400569358 /* Project object */;
 }
