@@ -21,7 +21,7 @@ public final class CommandServer
 
 internal final class ClearDisplayHandler : HTTPHandler
 {
-    var display: PixelDisplay?
+    private let display: PixelDisplay
     
     init(pixelDisplay: PixelDisplay)
     {
@@ -30,10 +30,7 @@ internal final class ClearDisplayHandler : HTTPHandler
     
     public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
     {
-        if (display != nil)
-        {
-            await display?.clearDisplay()
-        }
+        await display.clearDisplay()
         
         return HTTPResponse(statusCode: .ok)
     }
