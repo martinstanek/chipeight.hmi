@@ -18,7 +18,6 @@ public final class CommandServer
     {
         await server.stop(timeout: 3)
     }
-
 }
 
 internal final class ClearDisplayHandler : HTTPHandler
@@ -71,6 +70,28 @@ internal final class SetPixelHandler : HTTPHandler
         let on = Bool(request.routeParameters["on"] ?? "false") ?? false
         
         await display.setPixel(x: x, y: y, state: on)
+        
+        return HTTPResponse(statusCode: .ok)
+    }
+}
+
+internal final class DrawSpriteHandler : HTTPHandler
+{
+    private let display: PixelDisplay
+    
+    init(pixelDisplay: PixelDisplay)
+    {
+        display = pixelDisplay
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        let x = Int(request.routeParameters["x"] ?? "0") ?? 0
+        let y = Int(request.routeParameters["y"] ?? "0") ?? 0
+        let sprite = request.routeParameters["sprite"] ?? ""
+        let spriteBytes = await Essentials.hexStringToBytes(string: sprite)
+        
+        await display.drawSprite(x: x, y: y, sprites: spriteBytes)
         
         return HTTPResponse(statusCode: .ok)
     }
