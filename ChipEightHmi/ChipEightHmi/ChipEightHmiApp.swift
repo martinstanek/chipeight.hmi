@@ -4,7 +4,7 @@ import SwiftUI
 struct ChipEightHmiApp: App
 {
     @StateObject private var display = PixelDisplay()
-    let commandServer = CommandServer();
+    private let commandServer = CommandServer();
     
     var body: some Scene
     {
@@ -68,14 +68,7 @@ struct ChipEightHmiApp: App
     {
         Task
         {
-            do
-            {
-                try await commandServer.stop();
-            }
-            catch let error
-            {
-                print(error)
-            }
+            await commandServer.stop();
         }
     }
 }
