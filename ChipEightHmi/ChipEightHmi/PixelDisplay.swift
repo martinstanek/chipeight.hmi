@@ -60,7 +60,9 @@ public final class PixelDisplay: NSObject, ObservableObject
                 
                 for (pixelIndex, pixel) in pixels.enumerated()
                 {
-                    self.pixels[y + spriteIndex][x + pixelIndex] = pixel
+                    let xor = self.pixels[y + spriteIndex][x + pixelIndex] ^^ pixel
+                    
+                    self.pixels[y + spriteIndex][x + pixelIndex] = xor
                 }
             }
         }
