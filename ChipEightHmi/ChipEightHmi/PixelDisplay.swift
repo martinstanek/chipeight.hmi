@@ -65,9 +65,11 @@ public final class PixelDisplay: NSObject, ObservableObject
                         continue
                     }
                     
-                    let xor = self.pixels[y + spriteIndex][x + pixelIndex] ^^ pixel
+                    let py = (y + spriteIndex) % DisplayConfig.height
+                    let px = (x + pixelIndex) % DisplayConfig.width
+                    let xor = self.pixels[py][px] ^^ pixel
                     
-                    self.pixels[y + spriteIndex][x + pixelIndex] = xor
+                    self.pixels[py][px] = xor
                 }
             }
         }
