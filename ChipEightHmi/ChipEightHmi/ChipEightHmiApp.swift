@@ -4,7 +4,9 @@ import SwiftUI
 struct ChipEightHmiApp: App
 {
     @StateObject private var display = PixelDisplay()
+    @State private var showSettings = false
     private let commandServer = CommandServer()
+    @Environment(\.openWindow) private var openWindow
     
     var body: some Scene
     {
@@ -25,6 +27,15 @@ struct ChipEightHmiApp: App
         .windowResizability(.contentSize)
         .commands
         {
+            CommandGroup(replacing: .appSettings)
+            {
+                Button("Settings...")
+                {
+                    openSettings()
+                }
+                .keyboardShortcut(",", modifiers: .command)
+            }
+            
             CommandMenu("Display")
             {
                 Button("Clear")
@@ -45,6 +56,11 @@ struct ChipEightHmiApp: App
                 }
                 .keyboardShortcut("b", modifiers: .command)
             }
+        }
+        
+        WindowGroup("Settings", id: "settings")
+        {
+            SettingsView()
         }
     }
     
@@ -70,5 +86,10 @@ struct ChipEightHmiApp: App
         {
             await commandServer.stop();
         }
+    }
+    
+    private func openSettings()
+    {
+        openWindow(id: "settings")
     }
 }
