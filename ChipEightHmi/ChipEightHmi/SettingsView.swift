@@ -2,59 +2,31 @@ import SwiftUI
 
 struct SettingsView: View
 {
-    @StateObject private var settings = ServerSettings()
     @Environment(\.dismissWindow) private var dismissWindow
+    @AppStorage("port") private var port = "8090"
+    @AppStorage("chip8Mapping") private var useChip8KeyboardMapping = false
     
     var body: some View
     {
-        VStack(spacing: 16)
+        VStack(spacing: 0)
         {
-            Text("Settings")
-                .font(.title)
-                .padding(.top)
-            
             VStack(alignment: .leading, spacing: 8)
             {
-                Text("Server URL")
-                    .font(.headline)
+                Text("Server port")
+                    .font(.caption)
                 
-                TextField("Server URL", text: $settings.serverURL)
+                TextField("Server port", text: $port)
                     .textFieldStyle(.roundedBorder)
                     .frame(maxWidth: .infinity)
-                
-                Text("Example: http://localhost:8090")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
             }
             .padding(.horizontal)
             
-            HStack(spacing: 12)
+            VStack(alignment: .leading, spacing: 8)
             {
-                Button("Reset to Default")
-                {
-                    settings.reset()
-                }
-                
-                Spacer()
-                
-                Button("Cancel")
-                {
-                    dismissWindow()
-                }
-                .keyboardShortcut(.cancelAction)
-                
-                Button("Save")
-                {
-                    settings.save()
-                    dismissWindow()
-                }
-                .keyboardShortcut(.defaultAction)
-                .buttonStyle(.borderedProminent)
+                Toggle("Use Chip8 keyboard mapping", isOn: $useChip8KeyboardMapping)
             }
-            .padding()
+            .padding(.horizontal)
         }
-        .frame(minWidth: 400, maxWidth: 500)
-        .padding()
     }
 }
 

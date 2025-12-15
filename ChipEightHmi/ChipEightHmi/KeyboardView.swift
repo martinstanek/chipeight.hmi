@@ -8,15 +8,18 @@ struct KeyboardView: View
     
     private let useChip8Mapping = false
     
-    private let keys = ["1", "2", "3", "C",
-                "4", "5", "6", "D",
-                "7", "8", "9", "E",
-                "A", "B", "F", "0"]
-    
     private let columns =
     [
         GridItem(.flexible()), GridItem(.flexible()),
         GridItem(.flexible()), GridItem(.flexible())
+    ]
+    
+    private let keys =
+    [
+        "1", "2", "3", "C",
+        "4", "5", "6", "D",
+        "7", "8", "9", "E",
+        "A", "B", "F", "0"
     ]
     
     let keyboardToChip8Mapping: [String: String] =

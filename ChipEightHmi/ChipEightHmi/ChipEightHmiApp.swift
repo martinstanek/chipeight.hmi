@@ -5,7 +5,6 @@ struct ChipEightHmiApp: App
 {
     @Environment(\.openWindow) private var openWindow
     @StateObject private var display = PixelDisplay()
-    @State private var showSettings = false
     private let commandServer = CommandServer()
 
     var body: some Scene
@@ -31,7 +30,7 @@ struct ChipEightHmiApp: App
             {
                 Button("Settings...")
                 {
-                    openWindow(id: "settings")
+                    openOrWindow(title: "Settings", id: "settings")
                 }
                 .keyboardShortcut(",", modifiers: .command)
             }
@@ -61,7 +60,7 @@ struct ChipEightHmiApp: App
             {
                 Button("Show")
                 {
-                    openOrFocusKeyboardWindow()
+                    openOrWindow(title: "Keyboard", id: "keyboard")
                 }
                 .keyboardShortcut("k", modifiers: .command)
                 
@@ -112,15 +111,15 @@ struct ChipEightHmiApp: App
         }
     }
     
-    private func openOrFocusKeyboardWindow()
+    private func openOrWindow(title: String, id: String)
     {
-        if let keyboardWindow = NSApp.windows.first(where: { $0.title == "Keyboard" })
+        if let window = NSApp.windows.first(where: { $0.title == title })
         {
-            keyboardWindow.makeKeyAndOrderFront(nil)
+            window.makeKeyAndOrderFront(nil)
         }
         else
         {
-            openWindow(id: "keyboard")
+            openWindow(id: id)
         }
     }
 }
