@@ -56,6 +56,19 @@ struct ChipEightHmiApp: App
                 }
                 .keyboardShortcut("b", modifiers: .command)
             }
+            
+            CommandMenu("Keyboard")
+            {
+                Button("Show")
+                {
+                    openWindow(id: "keyboard")
+                }
+                
+                Button("Hide")
+                {
+                    NSApp.windows.first(where: { $0.title == "Keyboard" })?.close()
+                }
+            }
         }
         
         WindowGroup("Settings", id: "settings")
@@ -64,6 +77,12 @@ struct ChipEightHmiApp: App
                 .frame(minWidth: 400, maxWidth: 400, minHeight: 250, maxHeight: 250)
         }
         .windowResizability(.contentSize)
+        
+        WindowGroup("Keyboard", id: "keyboard")
+        {
+            KeyboardView()
+        }
+        .windowResizability(.automatic)
     }
     
     private func tryStartServer(pixelDisplay: PixelDisplay)
