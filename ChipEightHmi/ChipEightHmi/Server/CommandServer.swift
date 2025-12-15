@@ -1,8 +1,10 @@
 import FlyingFox
+import SwiftUI
 
 public final class CommandServer
 {
-    private let server = HTTPServer(port: 8090)
+    @AppStorage("port") private var port = "8090"
+    private lazy var server: HTTPServer = { getHttpServer() }()
     
     public func start(pixelDisplay: PixelDisplay) async throws
     {
@@ -18,6 +20,16 @@ public final class CommandServer
     public func stop() async
     {
         await server.stop(timeout: 3)
+    }
+    
+    private func getHttpServer() -> HTTPServer
+    {
+        do
+        {
+            let p = UInt16(port) ?? 8090
+            
+            return HTTPServer(port: p)
+        }
     }
 }
 

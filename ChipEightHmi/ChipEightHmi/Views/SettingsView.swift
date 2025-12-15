@@ -3,9 +3,9 @@ import SwiftUI
 struct SettingsView: View
 {
     @Environment(\.dismissWindow) private var dismissWindow
-    @AppStorage("port") private var port = "8090"
     @AppStorage("chip8Mapping") private var useChip8KeyboardMapping = false
-    
+    @AppStorage("port") private var port = "8090"
+
     var body: some View
     {
         VStack(alignment: .leading, spacing: 16)

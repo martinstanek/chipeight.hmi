@@ -3,11 +3,10 @@ import SwiftUI
 struct KeyboardView: View
 {
     @ObservedObject var keyMatrix: KeyMatrix
+    @AppStorage("chip8Mapping") private var useChip8KeyboardMapping = false
     @State private var pressedKey: String?
     @State private var heldKeys: Set<String> = []
     @State private var keyboardMonitors: [Any] = []
-    
-    private let useChip8Mapping = false
     
     private let columns =
     [
@@ -130,7 +129,7 @@ struct KeyboardView: View
         
         for char in characters
         {
-            if let chip8Key = useChip8Mapping
+            if let chip8Key = useChip8KeyboardMapping
                 ? keyboardToChip8Mapping[String(char)]
                 : keyboardMapping[String(char)]
             {
