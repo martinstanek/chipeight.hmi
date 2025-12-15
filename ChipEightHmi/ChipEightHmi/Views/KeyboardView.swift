@@ -2,6 +2,7 @@ import SwiftUI
 
 struct KeyboardView: View
 {
+    @ObservedObject var keyMatrix: KeyMatrix
     @State private var pressedKey: String?
     @State private var heldKeys: Set<String> = []
     @State private var keyboardMonitors: [Any] = []
@@ -135,19 +136,15 @@ struct KeyboardView: View
             {
                 if isKeyDown
                 {
-                    heldKeys.insert(chip8Key)
-                    pressedKey = chip8Key
-                    print("Key down: \(chip8Key)")
+                    handleKeyDown(chip8Key)
+                    return true
                 }
-                else
-                {
-                    heldKeys.remove(chip8Key)
-                    pressedKey = nil
-                    print("Key up: \(chip8Key)")
-                }
+                
+                handleKeyUp(chip8Key)
                 return true
             }
         }
+        
         return false
     }
     
@@ -155,76 +152,18 @@ struct KeyboardView: View
     {
         heldKeys.insert(key)
         pressedKey = key
-        print("Key down: \(key)")
+        keyMatrix.keyDown(key: key)
     }
     
     private func handleKeyUp(_ key: String)
     {
         heldKeys.remove(key)
         pressedKey = nil
-        print("Key up: \(key)")
-    }
-}
-
-struct MouseEventButtonModifier: ViewModifier
-{
-    let key: String
-    let onKeyDown: () -> Void
-    let onKeyUp: () -> Void
-    
-    @State private var isMouseOver = false
-    @State private var mouseMonitor: Any?
-    
-    func body(content: Content) -> some View
-    {
-        content
-            .onContinuousHover { phase in
-                switch phase {
-                case .active(let location):
-                    isMouseOver = true
-                case .ended:
-                    isMouseOver = false
-                }
-            }
-            .onAppear {
-                setupMouseMonitoring()
-            }
-            .onDisappear {
-                removeMouseMonitoring()
-            }
-    }
-    
-    private func setupMouseMonitoring()
-    {
-        mouseMonitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .leftMouseUp]) { event in
-            if isMouseOver {
-                if event.type == .leftMouseDown {
-                    onKeyDown()
-                } else if event.type == .leftMouseUp {
-                    onKeyUp()
-                }
-            }
-            return event
-        }
-    }
-    
-    private func removeMouseMonitoring()
-    {
-        if let monitor = mouseMonitor {
-            NSEvent.removeMonitor(monitor)
-        }
-    }
-}
-
-extension View
-{
-    func mouseEventButton(key: String, onKeyDown: @escaping () -> Void, onKeyUp: @escaping () -> Void) -> some View
-    {
-        modifier(MouseEventButtonModifier(key: key, onKeyDown: onKeyDown, onKeyUp: onKeyUp))
+        keyMatrix.keyUp(key: key)
     }
 }
 
 #Preview
 {
-    KeyboardView()
+    KeyboardView(keyMatrix: KeyMatrix())
 }

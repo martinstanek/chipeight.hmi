@@ -7,21 +7,17 @@ public final class KeyMatrix: NSObject, ObservableObject
     @Published public var keys: [Bool] = Array(repeating: false,count: 16)
     @Published public var lastPressed: UInt8?
     
-    private let keysLock = NSLock()
-    
-    public func setKey(k: Int)
+    public func keyDown(key: String)
     {
-        keysLock.lock()
+        var index = Essentials.hexStringToBytes(string: key)[0]
         
-        defer
-        {
-            keysLock.unlock()
-        }
-        
-        DispatchQueue.main.async
-        {
-            self.keys[k] = true
-        }
+        print("Key down: \(index)")
     }
     
+    public func keyUp(key: String)
+    {
+        var index = Essentials.hexStringToBytes(string: key)[0]
+        
+        print("Key up: \(index)")
+    }
 }

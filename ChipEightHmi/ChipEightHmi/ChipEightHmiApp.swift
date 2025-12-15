@@ -5,6 +5,7 @@ struct ChipEightHmiApp: App
 {
     @Environment(\.openWindow) private var openWindow
     @StateObject private var display = PixelDisplay()
+    @StateObject private var keyMatrix = KeyMatrix()
     private let commandServer = CommandServer()
 
     var body: some Scene
@@ -75,7 +76,7 @@ struct ChipEightHmiApp: App
         
         WindowGroup("Keyboard", id: "keyboard")
         {
-            KeyboardView()
+            KeyboardView(keyMatrix: keyMatrix)
                 .frame(minWidth: 300, maxWidth: 300, minHeight: 350, maxHeight: 350)
         }
         .windowResizability(.contentSize)
