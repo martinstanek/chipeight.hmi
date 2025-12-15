@@ -61,7 +61,9 @@ struct ChipEightHmiApp: App
         WindowGroup("Settings", id: "settings")
         {
             SettingsView()
+                .frame(minWidth: 400, maxWidth: 400, minHeight: 250, maxHeight: 250)
         }
+        .windowResizability(.contentSize)
     }
     
     private func tryStartServer(pixelDisplay: PixelDisplay)
