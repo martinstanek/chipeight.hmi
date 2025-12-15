@@ -69,8 +69,8 @@ struct KeyboardView: View
             
             VStack
             {
-                Text(pressedKey ?? "-")
-                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                Text(keyMatrix.binaryArray)
+                    .font(.system(size: 24, weight: .bold, design: .monospaced))
                     .foregroundColor(.primary)
                     .frame(height: 60)
             }

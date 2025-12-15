@@ -41,6 +41,11 @@ public final class Essentials
     
     public static func bytesToHexString(bytes: [UInt8]) -> String
     {
-        return ""
+        return bytes.map { String(format: "%02x", $0) }.joined()
+    }
+    
+    public static func boolsToBinaryString(bools: [Bool]) -> String
+    {
+        return bools.map { $0 ? "1" : "0" }.joined()
     }
 }

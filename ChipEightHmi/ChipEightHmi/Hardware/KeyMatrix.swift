@@ -6,6 +6,7 @@ public final class KeyMatrix: NSObject, ObservableObject
 {
     @Published public var keys: [Bool] = Array(repeating: false, count: 16)
     @Published public var lastPressed: UInt8?
+    @Published public var binaryArray: String = ""
     
     public func keyDown(key: String)
     {
@@ -18,6 +19,7 @@ public final class KeyMatrix: NSObject, ObservableObject
         
         keys[Int(index)] = true
         lastPressed = index
+        binaryArray = Essentials.boolsToBinaryString(bools: keys)
         
         print("Key down: \(index)")
     }
@@ -27,6 +29,7 @@ public final class KeyMatrix: NSObject, ObservableObject
         let index = Essentials.hexStringToBytes(string: key)[0]
         
         keys[Int(index)] = false
+        binaryArray = Essentials.boolsToBinaryString(bools: keys)
         
         print("Key up: \(index)")
     }
