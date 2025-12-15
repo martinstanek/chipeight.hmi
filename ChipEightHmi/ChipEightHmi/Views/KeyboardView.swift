@@ -99,15 +99,13 @@ struct KeyboardView: View
         let downMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown)
         {
             event in
-            self.handlePhysicalKeyPress(event, isKeyDown: true)
-            return event
+            return self.handlePhysicalKeyPress(event, isKeyDown: true) ? nil : event
         }
         
         let upMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyUp)
         {
             event in
-            self.handlePhysicalKeyPress(event, isKeyDown: false)
-            return event
+            return self.handlePhysicalKeyPress(event, isKeyDown: false) ? nil : event
         }
         
         keyboardMonitors = [downMonitor, upMonitor]
@@ -115,18 +113,20 @@ struct KeyboardView: View
     
     private func removeKeyboardMonitoring()
     {
-        for monitor in keyboardMonitors {
+        for monitor in keyboardMonitors
+        {
             NSEvent.removeMonitor(monitor)
         }
+        
         keyboardMonitors.removeAll()
     }
     
-    private func handlePhysicalKeyPress(_ event: NSEvent, isKeyDown: Bool)
+    private func handlePhysicalKeyPress(_ event: NSEvent, isKeyDown: Bool) -> Bool
     {
         guard let characters = event.characters?.lowercased()
         else
         {
-            return
+            return false
         }
         
         for char in characters
@@ -147,9 +147,10 @@ struct KeyboardView: View
                     pressedKey = nil
                     print("Key up: \(chip8Key)")
                 }
-                break
+                return true
             }
         }
+        return false
     }
     
     private func handleKeyPress(_ key: String)
