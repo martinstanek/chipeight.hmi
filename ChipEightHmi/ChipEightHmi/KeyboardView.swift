@@ -6,15 +6,19 @@ struct KeyboardView: View
     @State private var pressedKey: String?
     @State private var keyboardMonitor: Any?
     
-    let keys = ["1", "2", "3", "C",
+    private let useChip8Mapping = false
+    
+    private let keys = ["1", "2", "3", "C",
                 "4", "5", "6", "D",
                 "7", "8", "9", "E",
                 "A", "B", "F", "0"]
     
-    let columns = [GridItem(.flexible()), GridItem(.flexible()), 
-                   GridItem(.flexible()), GridItem(.flexible())]
+    private let columns =
+    [
+        GridItem(.flexible()), GridItem(.flexible()),
+        GridItem(.flexible()), GridItem(.flexible())
+    ]
     
-    // Map physical Mac keyboard to Chip8 keys
     let keyboardToChip8Mapping: [String: String] =
     [
         "1": "1", "2": "2", "3": "3", "4": "C",
@@ -38,22 +42,21 @@ struct KeyboardView: View
     {
         VStack(spacing: 12)
         {
-            Text("Chip8 Keyboard")
-                .font(.title2)
-                .fontWeight(.semibold)
-                .padding(.top, 16)
-            
             LazyVGrid(columns: columns, spacing: 12)
             {
-                ForEach(keys, id: \.self) { key in
-                    Button(action: {
+                ForEach(keys, id: \.self)
+                {
+                    key in
+                    Button(action:
+                            {
                         handleKeyPress(key)
-                    }) {
+                    })
+                    {
                         Text(key)
                             .font(.system(size: 18, weight: .semibold, design: .monospaced))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
-                            .aspectRatio(1, contentMode: .fit)
+                            .aspectRatio(3, contentMode: .fit)
                             .background(pressedKey == key ? Color.blue.opacity(0.7) : Color.blue)
                             .cornerRadius(8)
                     }
@@ -77,7 +80,9 @@ struct KeyboardView: View
     
     private func setupKeyboardMonitoring()
     {
-        keyboardMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown) { event in
+        keyboardMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown)
+        {
+            event in
             handlePhysicalKeyPress(event)
             return event
         }
@@ -93,11 +98,17 @@ struct KeyboardView: View
     
     private func handlePhysicalKeyPress(_ event: NSEvent)
     {
-        guard let characters = event.characters?.lowercased() else { return }
+        guard let characters = event.characters?.lowercased()
+        else
+        {
+            return
+        }
         
         for char in characters
         {
-            if let chip8Key = keyboardMapping[String(char)]
+            if let chip8Key = useChip8Mapping
+                ? keyboardToChip8Mapping[String(char)]
+                : keyboardMapping[String(char)]
             {
                 handleKeyPress(chip8Key)
                 break
@@ -108,6 +119,7 @@ struct KeyboardView: View
     private func handleKeyPress(_ key: String)
     {
         pressedKey = key
+        
         print("Key pressed: \(key)")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)

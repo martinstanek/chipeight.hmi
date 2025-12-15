@@ -3,11 +3,11 @@ import SwiftUI
 @main
 struct ChipEightHmiApp: App
 {
+    @Environment(\.openWindow) private var openWindow
     @StateObject private var display = PixelDisplay()
     @State private var showSettings = false
     private let commandServer = CommandServer()
-    @Environment(\.openWindow) private var openWindow
-    
+
     var body: some Scene
     {
         WindowGroup
@@ -31,7 +31,7 @@ struct ChipEightHmiApp: App
             {
                 Button("Settings...")
                 {
-                    openSettings()
+                    openWindow(id: "settings")
                 }
                 .keyboardShortcut(",", modifiers: .command)
             }
@@ -42,7 +42,7 @@ struct ChipEightHmiApp: App
                 {
                     display.clearDisplay()
                 }
-                .keyboardShortcut("k", modifiers: .command)
+                .keyboardShortcut("r", modifiers: .command)
                 
                 Button("Light")
                 {
@@ -61,13 +61,15 @@ struct ChipEightHmiApp: App
             {
                 Button("Show")
                 {
-                    openWindow(id: "keyboard")
+                    openOrFocusKeyboardWindow()
                 }
+                .keyboardShortcut("k", modifiers: .command)
                 
                 Button("Hide")
                 {
                     NSApp.windows.first(where: { $0.title == "Keyboard" })?.close()
                 }
+                .keyboardShortcut("n", modifiers: .command)
             }
         }
         
@@ -81,8 +83,9 @@ struct ChipEightHmiApp: App
         WindowGroup("Keyboard", id: "keyboard")
         {
             KeyboardView()
+                .frame(minWidth: 300, maxWidth: 300, minHeight: 350, maxHeight: 350)
         }
-        .windowResizability(.automatic)
+        .windowResizability(.contentSize)
     }
     
     private func tryStartServer(pixelDisplay: PixelDisplay)
@@ -109,8 +112,15 @@ struct ChipEightHmiApp: App
         }
     }
     
-    private func openSettings()
+    private func openOrFocusKeyboardWindow()
     {
-        openWindow(id: "settings")
+        if let keyboardWindow = NSApp.windows.first(where: { $0.title == "Keyboard" })
+        {
+            keyboardWindow.makeKeyAndOrderFront(nil)
+        }
+        else
+        {
+            openWindow(id: "keyboard")
+        }
     }
 }
