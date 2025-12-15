@@ -38,4 +38,9 @@ public final class Essentials
 
         return bytes
     }
+    
+    public static func bytesToHexString(bytes: [UInt8]) -> String
+    {
+        return ""
+    }
 }

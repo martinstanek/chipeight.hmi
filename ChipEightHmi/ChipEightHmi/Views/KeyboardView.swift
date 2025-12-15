@@ -3,7 +3,8 @@ import SwiftUI
 struct KeyboardView: View
 {
     @State private var pressedKey: String?
-    @State private var keyboardMonitor: Any?
+    @State private var heldKeys: Set<String> = []
+    @State private var keyboardMonitors: [Any] = []
     
     private let useChip8Mapping = false
     
@@ -95,23 +96,32 @@ struct KeyboardView: View
     
     private func setupKeyboardMonitoring()
     {
-        keyboardMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown)
+        let downMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyDown)
         {
             event in
-            handlePhysicalKeyPress(event)
+            self.handlePhysicalKeyPress(event, isKeyDown: true)
             return event
         }
+        
+        let upMonitor = NSEvent.addLocalMonitorForEvents(matching: .keyUp)
+        {
+            event in
+            self.handlePhysicalKeyPress(event, isKeyDown: false)
+            return event
+        }
+        
+        keyboardMonitors = [downMonitor, upMonitor]
     }
     
     private func removeKeyboardMonitoring()
     {
-        if let monitor = keyboardMonitor
-        {
+        for monitor in keyboardMonitors {
             NSEvent.removeMonitor(monitor)
         }
+        keyboardMonitors.removeAll()
     }
     
-    private func handlePhysicalKeyPress(_ event: NSEvent)
+    private func handlePhysicalKeyPress(_ event: NSEvent, isKeyDown: Bool)
     {
         guard let characters = event.characters?.lowercased()
         else
@@ -125,7 +135,18 @@ struct KeyboardView: View
                 ? keyboardToChip8Mapping[String(char)]
                 : keyboardMapping[String(char)]
             {
-                handleKeyPress(chip8Key)
+                if isKeyDown
+                {
+                    heldKeys.insert(chip8Key)
+                    pressedKey = chip8Key
+                    print("Key down: \(chip8Key)")
+                }
+                else
+                {
+                    heldKeys.remove(chip8Key)
+                    pressedKey = nil
+                    print("Key up: \(chip8Key)")
+                }
                 break
             }
         }
@@ -133,14 +154,10 @@ struct KeyboardView: View
     
     private func handleKeyPress(_ key: String)
     {
+        heldKeys.insert(key)
         pressedKey = key
         
         print("Key pressed: \(key)")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)
-        {
-            pressedKey = nil
-        }
     }
 }
 
