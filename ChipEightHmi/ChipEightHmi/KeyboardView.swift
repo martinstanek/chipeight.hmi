@@ -2,7 +2,6 @@ import SwiftUI
 
 struct KeyboardView: View
 {
-    @Environment(\.dismissWindow) private var dismissWindow
     @State private var pressedKey: String?
     @State private var keyboardMonitor: Any?
     
@@ -43,7 +42,7 @@ struct KeyboardView: View
     
     var body: some View
     {
-        VStack(spacing: 12)
+        VStack(spacing: 16)
         {
             LazyVGrid(columns: columns, spacing: 12)
             {
@@ -67,6 +66,19 @@ struct KeyboardView: View
                 }
             }
             .padding(16)
+            
+            VStack
+            {
+                Text(pressedKey ?? "-")
+                    .font(.system(size: 48, weight: .bold, design: .monospaced))
+                    .foregroundColor(.primary)
+                    .frame(height: 60)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(nsColor: .controlBackgroundColor))
+            .cornerRadius(8)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
             
             Spacer()
         }

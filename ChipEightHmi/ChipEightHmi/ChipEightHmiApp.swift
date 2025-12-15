@@ -63,12 +63,6 @@ struct ChipEightHmiApp: App
                     openOrWindow(title: "Keyboard", id: "keyboard")
                 }
                 .keyboardShortcut("k", modifiers: .command)
-                
-                Button("Hide")
-                {
-                    NSApp.windows.first(where: { $0.title == "Keyboard" })?.close()
-                }
-                .keyboardShortcut("n", modifiers: .command)
             }
         }
         

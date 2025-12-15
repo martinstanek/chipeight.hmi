@@ -8,25 +8,19 @@ struct SettingsView: View
     
     var body: some View
     {
-        VStack(spacing: 0)
+        VStack(alignment: .leading, spacing: 16)
         {
-            VStack(alignment: .leading, spacing: 8)
-            {
-                Text("Server port")
-                    .font(.caption)
-                
-                TextField("Server port", text: $port)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(maxWidth: .infinity)
-            }
-            .padding(.horizontal)
+            Text("Server port")
+                .font(.caption)
             
-            VStack(alignment: .leading, spacing: 8)
-            {
-                Toggle("Use Chip8 keyboard mapping", isOn: $useChip8KeyboardMapping)
-            }
-            .padding(.horizontal)
+            TextField("Server port", text: $port)
+                .textFieldStyle(.roundedBorder)
+            
+            Toggle("Use Chip8 keyboard mapping", isOn: $useChip8KeyboardMapping)
+            
+            Spacer()
         }
+        .padding()
     }
 }
 
