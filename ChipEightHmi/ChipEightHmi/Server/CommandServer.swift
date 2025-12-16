@@ -13,6 +13,7 @@ public final class CommandServer
         await server.appendRoute("/set/:x/:y/:on", to: SetPixelHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/sprite/:x/:y/:sprites", to: DrawSpriteHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/keys", to: GetKeysHandler(keyMatrix: keyMatrix))
+        await server.appendRoute("/keys/ack", to: AckKeysHandler(keyMatrix: keyMatrix))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -125,5 +126,22 @@ internal final class GetKeysHandler : HTTPHandler
         let payload = await keys.getStateString().data(using: .utf8)
     
         return HTTPResponse(statusCode: .ok, headers: [:], body: HTTPBodySequence(data: Data(payload!)))
+    }
+}
+
+internal final class AckKeysHandler : HTTPHandler
+{
+    private let keys: KeyMatrix
+    
+    init(keyMatrix: KeyMatrix)
+    {
+        keys = keyMatrix
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        await keys.ackLastKey()
+    
+        return HTTPResponse(statusCode: .ok)
     }
 }
