@@ -64,6 +64,11 @@ struct ChipEightHmiApp: App
                     openOrWindow(title: "Keyboard", id: "keyboard")
                 }
                 .keyboardShortcut("k", modifiers: .command)
+                Button("Reset")
+                {
+                    keyMatrix.reset()
+                }
+                .keyboardShortcut("r", modifiers: .command)
             }
         }
         

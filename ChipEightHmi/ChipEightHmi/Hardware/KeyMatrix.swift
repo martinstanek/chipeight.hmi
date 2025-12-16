@@ -46,4 +46,12 @@ public final class KeyMatrix: NSObject, ObservableObject
     {
         return "\(lastPressedHex)\(binaryArray)"
     }
+    
+    public func reset()
+    {
+        keys = Array(repeating: false, count: 16)
+        lastPressed = nil
+        binaryArray = "0000000000000000"
+        lastPressedHex = "XX"
+    }
 }
