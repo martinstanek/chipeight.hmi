@@ -122,7 +122,7 @@ internal final class GetKeysHandler : HTTPHandler
     
     public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
     {
-        let payload = keys.getStateString().data(using: .utf8)
+        let payload = await keys.getStateString().data(using: .utf8)
     
         return HTTPResponse(statusCode: .ok, headers: [:], body: HTTPBodySequence(data: Data(payload!)))
     }

@@ -79,6 +79,19 @@ struct KeyboardView: View
             .padding(.horizontal, 16)
             .padding(.bottom, 16)
             
+            VStack
+            {
+                Text(keyMatrix.lastPressedHex)
+                    .font(.system(size: 24, weight: .bold, design: .monospaced))
+                    .foregroundColor(.primary)
+                    .frame(height: 60)
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color(nsColor: .controlBackgroundColor))
+            .cornerRadius(8)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 16)
+            
             Spacer()
         }
         .frame(minWidth: 300, minHeight: 350)

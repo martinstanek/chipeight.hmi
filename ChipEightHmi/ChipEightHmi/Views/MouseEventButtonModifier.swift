@@ -17,7 +17,7 @@ struct MouseEventButtonModifier: ViewModifier
                 phase in
                 switch phase
                 {
-                    case .active(let location):
+                    case .active:
                         isMouseOver = true
                     case .ended:
                         isMouseOver = false
