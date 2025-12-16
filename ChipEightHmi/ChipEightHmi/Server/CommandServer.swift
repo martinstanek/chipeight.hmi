@@ -6,12 +6,13 @@ public final class CommandServer
     @AppStorage("port") private var port = "8090"
     private lazy var server: HTTPServer = { getHttpServer() }()
     
-    public func start(pixelDisplay: PixelDisplay) async throws
+    public func start(pixelDisplay: PixelDisplay, keyMatrix: KeyMatrix) async throws
     {
         await server.appendRoute("/clear", to: ClearDisplayHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/light", to: LightDisplayHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/set/:x/:y/:on", to: SetPixelHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/sprite/:x/:y/:sprites", to: DrawSpriteHandler(pixelDisplay: pixelDisplay))
+        await server.appendRoute("/keys", to: GetKeysHandler(keyMatrix: keyMatrix))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -107,5 +108,22 @@ internal final class DrawSpriteHandler : HTTPHandler
         await display.drawSprite(x: x, y: y, sprites: spriteBytes)
         
         return HTTPResponse(statusCode: .ok)
+    }
+}
+
+internal final class GetKeysHandler : HTTPHandler
+{
+    private let keys: KeyMatrix
+    
+    init(keyMatrix: KeyMatrix)
+    {
+        keys = keyMatrix
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        let payload = keys.getStateString().data(using: .utf8)
+    
+        return HTTPResponse(statusCode: .ok, headers: [:], body: HTTPBodySequence(data: Data(payload!)))
     }
 }

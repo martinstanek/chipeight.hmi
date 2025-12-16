@@ -33,4 +33,18 @@ public final class KeyMatrix: NSObject, ObservableObject
         
         print("Key up: \(index)")
     }
+    
+    public func ackLastKey()
+    {
+        lastPressed = nil
+    }
+    
+    public func getStateString() -> String
+    {
+        let lastKeyHex = lastPressed == nil
+        ? "__"
+        : Essentials.bytesToHexString(bytes: [lastPressed!])
+        
+        return "\(lastKeyHex)\(binaryArray)"
+    }
 }

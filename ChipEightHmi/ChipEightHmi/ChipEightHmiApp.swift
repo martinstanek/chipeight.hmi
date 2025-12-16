@@ -17,7 +17,7 @@ struct ChipEightHmiApp: App
                 .frame(minWidth: 840, maxWidth: 840, minHeight: 435, maxHeight: 435)
                 .onAppear
                 {
-                    tryStartServer(pixelDisplay: display)
+                    tryStartServer()
                 }
                 .onDisappear
                 {
@@ -82,13 +82,13 @@ struct ChipEightHmiApp: App
         .windowResizability(.contentSize)
     }
     
-    private func tryStartServer(pixelDisplay: PixelDisplay)
+    private func tryStartServer()
     {
         Task
         {
             do
             {
-                try await commandServer.start(pixelDisplay: pixelDisplay)
+                try await commandServer.start(pixelDisplay: display, keyMatrix: keyMatrix)
             }
             catch let error
             {
