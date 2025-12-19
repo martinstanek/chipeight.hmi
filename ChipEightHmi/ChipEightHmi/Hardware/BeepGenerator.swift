@@ -5,24 +5,36 @@ public import Combine
 
 public final class BeepGenerator: NSObject, ObservableObject
 {
+    @AppStorage("buzzerEnabled") private var enableBuzzer = true
     private var isSoundOn = false
     
     public func pitchOn()
     {
-        if isSoundOn
+        if !enableBuzzer || isSoundOn
         {
             return
         }
         
-        Sound.play(file: "440Hz.wav", numberOfLoops: -1)
-        
         isSoundOn = true
+        
+        Sound.play(file: "440Hz.wav", numberOfLoops: -1)
     }
     
     public func pitchOff()
     {
+        if !enableBuzzer || !isSoundOn
+        {
+            return
+        }
+        
         isSoundOn = false
         
+        Sound.stopAll()
+    }
+    
+    public func reset()
+    {
+        isSoundOn = false;
         Sound.stopAll()
     }
 }

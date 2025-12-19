@@ -63,15 +63,27 @@ struct ChipEightHmiApp: App
                 Button("Show")
                 {
                     openOrWindow(title: "Keyboard", id: "keyboard")
-                    buzzer.pitchOn()
                 }
                 .keyboardShortcut("k", modifiers: .command)
                 Button("Reset")
                 {
                     keyMatrix.reset()
-                    buzzer.pitchOff()
                 }
                 .keyboardShortcut("r", modifiers: .command)
+            }
+            
+            CommandMenu("Buzzer")
+            {
+                Button("Test")
+                {
+                    buzzer.pitchOn();
+                }
+                .keyboardShortcut("t", modifiers: .command)
+                Button("Reset")
+                {
+                    buzzer.reset()
+                }
+                .keyboardShortcut("s", modifiers: .command)
             }
         }
         
