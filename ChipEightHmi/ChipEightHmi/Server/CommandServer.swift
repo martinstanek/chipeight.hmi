@@ -6,7 +6,7 @@ public final class CommandServer
     @AppStorage("port") private var port = "8090"
     private lazy var server: HTTPServer = { getHttpServer() }()
     
-    public func start(pixelDisplay: PixelDisplay, keyMatrix: KeyMatrix) async throws
+    public func start(pixelDisplay: PixelDisplay, keyMatrix: KeyMatrix, buzzer: BeepGenerator) async throws
     {
         await server.appendRoute("/clear", to: ClearDisplayHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/light", to: LightDisplayHandler(pixelDisplay: pixelDisplay))
@@ -14,6 +14,7 @@ public final class CommandServer
         await server.appendRoute("/sprite/:x/:y/:sprites", to: DrawSpriteHandler(pixelDisplay: pixelDisplay))
         await server.appendRoute("/keys", to: GetKeysHandler(keyMatrix: keyMatrix))
         await server.appendRoute("/keys/ack", to: AckKeysHandler(keyMatrix: keyMatrix))
+        await server.appendRoute("/buzzer/:on", to: BuzzerHandler(buzzer: buzzer))
         
         try await server.run()
         try await server.waitUntilListening()
@@ -141,6 +142,32 @@ internal final class AckKeysHandler : HTTPHandler
     public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
     {
         await keys.ackLastKey()
+    
+        return HTTPResponse(statusCode: .ok)
+    }
+}
+
+internal final class BuzzerHandler : HTTPHandler
+{
+    private let beeper: BeepGenerator
+    
+    init(buzzer: BeepGenerator)
+    {
+        beeper = buzzer
+    }
+    
+    public func handleRequest(_ request: HTTPRequest) async throws -> HTTPResponse
+    {
+        let on = Bool(request.routeParameters["on"] ?? "false") ?? false
+        
+        if on
+        {
+            await beeper.pitchOn()
+        }
+        else
+        {
+            await beeper.pitchOff()
+        }
     
         return HTTPResponse(statusCode: .ok)
     }

@@ -6,8 +6,9 @@ struct ChipEightHmiApp: App
     @Environment(\.openWindow) private var openWindow
     @StateObject private var display = PixelDisplay()
     @StateObject private var keyMatrix = KeyMatrix()
+    @StateObject private var buzzer = BeepGenerator()
     private let commandServer = CommandServer()
-
+    
     var body: some Scene
     {
         WindowGroup
@@ -62,11 +63,13 @@ struct ChipEightHmiApp: App
                 Button("Show")
                 {
                     openOrWindow(title: "Keyboard", id: "keyboard")
+                    buzzer.pitchOn()
                 }
                 .keyboardShortcut("k", modifiers: .command)
                 Button("Reset")
                 {
                     keyMatrix.reset()
+                    buzzer.pitchOff()
                 }
                 .keyboardShortcut("r", modifiers: .command)
             }
@@ -93,7 +96,7 @@ struct ChipEightHmiApp: App
         {
             do
             {
-                try await commandServer.start(pixelDisplay: display, keyMatrix: keyMatrix)
+                try await commandServer.start(pixelDisplay: display, keyMatrix: keyMatrix, buzzer: buzzer)
             }
             catch let error
             {

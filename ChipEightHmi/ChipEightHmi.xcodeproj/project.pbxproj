@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F308BDCB2EF56E1C0003A79F /* SwiftySound in Frameworks */ = {isa = PBXBuildFile; productRef = F308BDCA2EF56E1C0003A79F /* SwiftySound */; };
 		F3109D8D2EEC53BD00040DCE /* FlyingFox in Frameworks */ = {isa = PBXBuildFile; productRef = F3109D8C2EEC53BD00040DCE /* FlyingFox */; };
 		F3109D8F2EEC53BD00040DCE /* FlyingSocks in Frameworks */ = {isa = PBXBuildFile; productRef = F3109D8E2EEC53BD00040DCE /* FlyingSocks */; };
 /* End PBXBuildFile section */
@@ -29,6 +30,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3109D8D2EEC53BD00040DCE /* FlyingFox in Frameworks */,
+				F308BDCB2EF56E1C0003A79F /* SwiftySound in Frameworks */,
 				F3109D8F2EEC53BD00040DCE /* FlyingSocks in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,6 +76,7 @@
 			packageProductDependencies = (
 				F3109D8C2EEC53BD00040DCE /* FlyingFox */,
 				F3109D8E2EEC53BD00040DCE /* FlyingSocks */,
+				F308BDCA2EF56E1C0003A79F /* SwiftySound */,
 			);
 			productName = ChipEightHmi;
 			productReference = F3A7F1192EEC134400569358 /* Chip8.app */;
@@ -105,6 +108,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */,
+				F308BDC92EF56E1C0003A79F /* XCRemoteSwiftPackageReference "SwiftySound" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F3A7F11A2EEC134400569358 /* Products */;
@@ -377,6 +381,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		F308BDC92EF56E1C0003A79F /* XCRemoteSwiftPackageReference "SwiftySound" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamcichy/SwiftySound.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.0;
+			};
+		};
 		F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/swhitty/FlyingFox.git";
@@ -388,6 +400,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		F308BDCA2EF56E1C0003A79F /* SwiftySound */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F308BDC92EF56E1C0003A79F /* XCRemoteSwiftPackageReference "SwiftySound" */;
+			productName = SwiftySound;
+		};
 		F3109D8C2EEC53BD00040DCE /* FlyingFox */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F3109D8B2EEC53BD00040DCE /* XCRemoteSwiftPackageReference "FlyingFox" */;
